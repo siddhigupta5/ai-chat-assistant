@@ -336,3 +336,127 @@ body {
   color: #9ca3af;
   margin-top: 6px;
 }
+/* ========================
+   MARKDOWN STYLES
+======================== */
+.message-bubble pre {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.message-bubble code {
+  background: #f3f4f6;
+  color: #e11d48;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+}
+
+.message-bubble pre code {
+  background: transparent;
+  color: #d4d4d4;
+  padding: 0;
+}
+
+.message-bubble ul, .message-bubble ol {
+  margin-left: 20px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.message-bubble li {
+  margin-bottom: 4px;
+}
+
+.message-bubble strong {
+  font-weight: 600;
+  color: #1f2937;
+}
+/* ========================
+   DARK MODE
+======================== */
+.chat-app.dark-mode {
+  background: #1a1a1a;
+}
+
+.dark-mode .chat-header {
+  background: #2d2d2d;
+  border-bottom-color: #404040;
+}
+
+.dark-mode .chat-title {
+  color: #e5e7eb;
+}
+
+.dark-mode .chat-messages {
+  background: #1a1a1a;
+}
+
+.dark-mode .bubble--ai {
+  background: #2d2d2d;
+  color: #e5e7eb;
+  border-color: #404040;
+}
+
+.dark-mode .chat-footer {
+  background: #2d2d2d;
+  border-top-color: #404040;
+}
+
+.dark-mode .input-box {
+  background: #1a1a1a;
+  border-color: #404040;
+}
+
+.dark-mode .chat-input {
+  color: #e5e7eb;
+}
+
+.dark-mode .chat-input::placeholder {
+  color: #6b7280;
+}
+
+.dark-mode .suggestion-chip {
+  background: #2d2d2d;
+  color: #818cf8;
+  border-color: #404040;
+}
+
+.dark-mode .message-time,
+.dark-mode .copy-btn {
+  color: #6b7280;
+}
+
+.dark-mode .chat-footer__note {
+  color: #6b7280;
+}
+.typing-text {
+  font-size: 12px;
+  color: #6b7280;
+  margin-left: 8px;
+}
+
+.dark-mode .typing-text {
+  color: #9ca3af;
+}
+.retry-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  margin-left: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: sans-serif;
+}
+
+.retry-btn:hover {
+  background: #dc2626;
+}

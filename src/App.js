@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import ReactMarkdown from 'react-markdown';
 import "./App.css";
 
 const SYSTEM_PROMPT = "You are a helpful, friendly AI assistant. Give clear and concise answers.";
@@ -26,7 +27,11 @@ const Message = ({ msg, onCopy }) => {
       {!isUser && <div className="avatar avatar--ai">AI</div>}
       <div className="message-content">
         <div className={`message-bubble ${isUser ? "bubble--user" : "bubble--ai"}`}>
-          {msg.content}
+        {isUser ? (
+          msg.content
+        ) : (
+          <ReactMarkdown>{msg.content}</ReactMarkdown>
+        )}
         </div>
         <div className={`message-meta ${isUser ? "message-meta--user" : "message-meta--ai"}`}>
           <span className="message-time">{msg.time}</span>
@@ -53,6 +58,11 @@ export default function App() {
   const [error, setError] = useState("");
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+  setDarkMode(!darkMode);
+  };
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -95,7 +105,18 @@ export default function App() {
       const reply = data?.choices?.[0]?.message?.content || "Sorry, I couldn't get a response.";
       setMessages(prev => [...prev, { role: "assistant", content: reply, time: getTime() }]);
     } catch (err) {
-      setError("⚠️ Network error. Please check your API key in .env and try again.");
+      console.error("API Error:", err);
+      let errorMsg = "⚠️ Something went wrong. ";
+      
+      if (err.message.includes("Failed to fetch")) {
+        errorMsg += "Check your internet connection.";
+      } else if (err.message.includes("401")) {
+        errorMsg += "API key is invalid. Check your .env file.";
+      } else {
+        errorMsg += "Please try again.";
+      }
+      
+      setError(errorMsg);
     } finally {
       setLoading(false);
       inputRef.current?.focus();
@@ -135,7 +156,7 @@ export default function App() {
   ];
 
   return (
-    <div className="chat-app">
+    <div className={`chat-app ${darkMode ? 'dark-mode' : ''}`}>
 
       {/* Header */}
       <header className="chat-header">
@@ -149,6 +170,9 @@ export default function App() {
         <div className="chat-header__actions">
           <button className="btn btn--ghost" onClick={copyAll}>📋 Copy All</button>
           <button className="btn btn--danger" onClick={clearChat}>🗑️ Clear</button>
+          <button className="btn btn--ghost" onClick={toggleDarkMode}>
+            {darkMode ? '☀️ Light' : '🌙 Dark'}
+          </button>
         </div>
       </header>
 
@@ -161,13 +185,30 @@ export default function App() {
         {loading && (
           <div className="message-row message-row--ai">
             <div className="avatar avatar--ai">AI</div>
-            <div className="bubble--ai bubble--typing">
-              <TypingIndicator />
+            <div className="message-content">
+              <div className="bubble--ai bubble--typing">
+                <TypingIndicator />
+                <span className="typing-text">AI is thinking...</span>
+              </div>
             </div>
           </div>
         )}
+        
 
-        {error && <div className="chat-error">{error}</div>}
+        
+        {error && (
+          <div className="chat-error">
+            {error}
+            <button 
+              className="retry-btn" 
+              onClick={() => {
+                setError("");
+                inputRef.current?.focus();
+              }}>
+              🔄 Try Again
+            </button>
+          </div>
+        )}
         <div ref={bottomRef} />
       </main>
 
@@ -200,9 +241,10 @@ export default function App() {
             disabled={!input.trim() || loading}
             className={`btn btn--send ${input.trim() && !loading ? "btn--active" : ""}`}>
             {loading ? "..." : "Send ➤"}
+            
           </button>
         </div>
-        <p className="chat-footer__note">Built with React + Groq (Llama 3) — Free AI API</p>
+        <p className="chat-footer__note">Built with React + Groq (Llama 3) — AI API</p>
       </footer>
 
     </div>
