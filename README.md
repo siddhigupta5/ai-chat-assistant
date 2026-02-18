@@ -18,10 +18,10 @@ A modern, feature-rich AI chat application built with React and Groq's Llama 3 A
 ## 🖼️ Screenshots
 
 ### Light Mode
-![Light Mode](screenshot-light.png)
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/2fa44974-d32a-4c80-8b32-494cf6293dbb" />
 
 ### Dark Mode
-![Dark Mode](screenshot-dark.png)
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/200da4e0-98d1-499e-946f-4dac2d8ea1c2" />
 
 ## 🛠️ Tech Stack
 - **Frontend:** React.js
