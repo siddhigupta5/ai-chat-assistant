@@ -403,6 +403,9 @@ body {
   color: #e5e7eb;
   border-color: #404040;
 }
+.dark-mode .bubble--ai strong {
+  color: #f3f4f6;  /* Light text in dark mode */
+}
 
 .dark-mode .chat-footer {
   background: #2d2d2d;
